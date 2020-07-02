@@ -5,6 +5,7 @@ export default {
     "message":"Nachricht",
     "result":"Ergebnis",
     "try":"Testen",
+    "send":"Senden",
     "unknown":"Unbekannt"
 }
 

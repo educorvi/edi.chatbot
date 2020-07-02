@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const levensthein = require('fast-levenshtein')
-const invalid = {distance: Number.MAX_SAFE_INTEGER, goal: null};
+const invalid = {distance: Number.MAX_SAFE_INTEGER, goal: "unknown"};
 
 
 /**
