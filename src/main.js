@@ -14,6 +14,7 @@ Vue.use(IconsPlugin)
 
 import VueI18n from 'vue-i18n';
 import messages from './lang';
+import router from './router'
 Vue.use(VueI18n);
 export const i18n = new VueI18n({
   locale: 'de',
@@ -23,5 +24,6 @@ export const i18n = new VueI18n({
 
 new Vue({
   i18n,
-  render: h => h(App),
+  router,
+  render: h => h(App)
 }).$mount('#app')

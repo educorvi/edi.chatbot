@@ -1,12 +1,15 @@
 export default {
-    "yes":"yes",
-    "no":"no",
-    "maybe":"maybe",
-    "message":"message"
+    "yes":"Yes",
+    "no":"No",
+    "maybe":"Maybe",
+    "message":"Message",
+    "result":"Result",
+    "try":"Try",
+    "unknown":"Unknown"
 }
 
 export const allAlternatives = {
-    "yes": ["yes", "say so", "sure"],
+    "yes": ["yes", "say so", "sure", "yo"],
     "no": ["no", "nope", "not at all"],
     "maybe": ["maybe", "not sure", "dont know"]
 }
