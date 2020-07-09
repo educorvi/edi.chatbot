@@ -5,7 +5,7 @@ const invalid = {distance: Number.MAX_SAFE_INTEGER, goal: "unknown"};
  * Highest tolerated Distance for Levenshtein
  * @type {number}
  */
-const tolerance = 5;
+const tolerance = 3;
 
 
 /**
@@ -48,6 +48,14 @@ class IllegalArgumentError extends Error {
     }
 }
 
+function arraySum(array) {
+    let ret = 0;
+    for (const arrayElement of array) {
+        ret += arrayElement;
+    }
+    return ret;
+}
+
 /**
  * Splits a String in Groups of words
  * @param offset The offset at which the splitting should start; for example if offset equals one, the first word is put in the Array as an entry, for 2 it's the first two words, and so on. Must be smaller than <code>subSize</code>
@@ -87,22 +95,7 @@ export function splitSentence(offset, string, subSize) {
     return subStrings;
 }
 
-/**
- * Divides a Sentence in Parts, each having not more than <code>subSize</code> words, sends these to minimal distance and calculates than, which is most likely to be correct
- * @param string The Sentence to be interpreted
- * @param goals An Array containing the words or containing arrays with alternatives in it
- * @param subSize Number of words per subString, defaults to two if undefined. If smaller then 1, this function passes the whole string to {@link minimalDistance} at once
- * @return Returns Index of the Entry that was most likely
- */
-export function interpretSentence(string, goals, subSize) {
-    if (goals.length < 1) {
-        throw new IllegalArgumentError("goals must not be empty!")
-    }
-    for (let i = 0; i < goals.length; i++) {
-        if (typeof (goals[i]) === "string") {
-            goals[i] = [goals[i]];
-        }
-    }
+function recHelperInterpretSentence(goals, subSize, string) {
     let results = [];
     for (let i = 0; i < goals.length; i++) {
         let lResults = [];
@@ -118,6 +111,35 @@ export function interpretSentence(string, goals, subSize) {
         }
         results.push(lResults);
     }
+    if (subSize > 0) {
+        const results2 = recHelperInterpretSentence(goals, subSize - 1, string);
+        for (let i = 0; i < results2.length; i++) {
+            for (let result of results2[i]) {
+                results[i].push(result);
+            }
+        }
+    }
+    return results;
+}
+
+/**
+ * Divides a Sentence in Parts, each having not more than <code>subSize</code> words, sends these to minimal distance and calculates than, which is most likely to be correct
+ * Uses the formula described <a href="">here</a>
+ * @param string The Sentence to be interpreted
+ * @param goals An Array containing the words or containing arrays with alternatives in it
+ * @param subSize Number of words per subString, defaults to two if undefined. Should ideally be set to the maximal amount of words in one String in the goals Array. If smaller then 1, this function passes the whole string to {@link minimalDistance} at once
+ * @return Returns Index of the Entry that was most likely
+ */
+export function interpretSentence(string, goals, subSize) {
+    if (goals.length < 1) {
+        throw new IllegalArgumentError("goals must not be empty!")
+    }
+    for (let i = 0; i < goals.length; i++) {
+        if (typeof (goals[i]) === "string") {
+            goals[i] = [goals[i]];
+        }
+    }
+    let results = recHelperInterpretSentence(goals, subSize, string);
 
     let points = [goals.length];
     for (let i = 0; i < results.length; i++) {
@@ -133,9 +155,10 @@ export function interpretSentence(string, goals, subSize) {
             retI = i;
         }
     }
-    if (results.length === 0) {
+    if (results.length === 0 || arraySum(points)===0) {
         return NaN;
     }
+    console.log(results)
 
     return retI;
 
