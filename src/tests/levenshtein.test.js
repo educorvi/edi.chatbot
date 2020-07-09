@@ -6,7 +6,7 @@ const STRINGS = {
     oneWord: "hallo",
     short: "Testen ist toll",
     normal1: "Hallo das ist eine ganz fantastische Angelegenheit",
-    long1: "Zweifellos verdient das Anliegen der ADL, die auch Bürgerwehren, Verschwörungsideologen, Impfgegner und Leugner des Klimawandels und des Holocausts nicht mehr auf Facebook sehen will, volle Unterstützung - nicht nur in den USA. Denn da es um den Schutz von Menschenrechten geht, hat der Protest auch eine internationale Dimension. Ob Weltkonzerne wie Coca-Cola, Unilever, Ford, Hewlett Packard und Honda, aber auch deutsche Unternehmen wie SAP, Volkswagen, Bayer, Henkel oder Siemens den Facebook-Boykott aus Überzeugung unterstützen, ist allerdings fraglich."
+    long1: "Bacon ipsum dolor amet sausage jerky fatback sirloin porchetta picanha cupim landjaeger pork chop salami. Jowl leberkas turducken pig chuck pork chop ground round biltong jerky frankfurter kevin cupim shoulder. Shankle bresaola biltong leberkas pork chop tongue shoulder. Ham hock kielbasa beef ribs, drumstick ribeye rump chuck leberkas flank t-bone swine corned beef burgdoggen."
 }
 
 function getAllStrings() {
