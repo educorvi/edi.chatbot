@@ -16,7 +16,7 @@ function getAllStrings() {
         result.push(STRINGS[key]);
     }
     return result;
-};
+}
 
 describe("split", () => {
     test("Einfach", () => expect(splitSentence(0, STRINGS.short, 2)).toStrictEqual(["Testen ist", "toll"]));
