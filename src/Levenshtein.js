@@ -151,17 +151,6 @@ export function yesNoMaybe(word, lang) {
     const alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
     const keys = Object.keys(alternatives);
     const values = Object.values(alternatives);
-
-    // let results = [];
-    // results.push({distance: minimalDistance(word, alternatives.yes).distance, goal: "yes"});
-    // results.push({distance: minimalDistance(word, alternatives.no).distance, goal: "no"});
-    // results.push({distance: minimalDistance(word, alternatives.maybe).distance, goal: "maybe"});
-    // results.sort((a, b) => a.distance - b.distance)
-    //
-    // let result = results[0];
-    // if (result.distance === Number.MAX_SAFE_INTEGER) {
-    //     result.goal = invalid.goal;
-    // }
     const index = interpretSentence(word, values, 2);
     if (isNaN(index)) {
         return invalid;
