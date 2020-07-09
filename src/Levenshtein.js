@@ -52,10 +52,16 @@ class IllegalArgumentError extends Error{
  * Splits a String in Groups of words
  * @param offset The offset at which the splitting should start; for example if offset equals one, the first word is put in the Array as an entry, for 2 it's the first two words, and so on. Must be smaller than <code>subSize</code>
  * @param string The String to be split
- * @param subSize The Number of words to leave together
+ * @param subSize The Number of words to leave together. Defaults to two if undefined, if smaller then one, <code>string</code> will be returned
  * @return Array of split wordgroups
  */
 export function splitSentence(offset, string, subSize) {
+    if (subSize === undefined) {
+        subSize = 2;
+    }
+    if (subSize < 1) {
+        return [string];
+    }
     const split = string.split(" ");
     if (offset >= subSize) {
         throw new IllegalArgumentError("offset must be smaller then subSize");
@@ -88,12 +94,6 @@ export function splitSentence(offset, string, subSize) {
  * @param subSize Number of words per subString, defaults to two if undefined. If smaller then 1, this function passes the whole string to {@link minimalDistance} at once
  */
  export function interpretSentence(string, goals, subSize) {
-    if (subSize === undefined) {
-        subSize = 2;
-    }
-    if (subSize < 1) {
-        return minimalDistance(string, goals);
-    }
     for (let o = 0; o < subSize; o++) {
         let subStrings = splitSentence(o, string, subSize);
     }
@@ -107,8 +107,6 @@ export function splitSentence(offset, string, subSize) {
  */
 export function yesNoMaybe(word, lang) {
     const alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
-     //Todo Remove
-     interpretSentence(word, alternatives.yes)
     let results = [];
     results.push({distance: minimalDistance(word, alternatives.yes).distance, goal: "yes"});
     results.push({distance: minimalDistance(word, alternatives.no).distance, goal: "no"});
