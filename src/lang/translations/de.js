@@ -11,6 +11,6 @@ export default {
 
 export const allAlternatives = {
     "yes": ["ja", "schon", "sicher"],
-    "no": ["ne", "nein", "nö"],
+    "no": ["ne", "nein", "nö", "nicht"],
     "maybe": ["Vielleicht", "Weiß nicht", "nicht sicher", "keine ahnung", "möglicherweiße"]
 }

@@ -5,7 +5,7 @@ const invalid = {distance: Number.MAX_SAFE_INTEGER, goal: "unknown"};
  * Highest tolerated Distance for Levenshtein
  * @type {number}
  */
-const tolerance = 3;
+const tolerance = 5;
 
 
 /**
@@ -41,10 +41,10 @@ export function minimalDistance(word, goals) {
 /**
  * Indicates that an Invalid Argument was given
  */
-class IllegalArgumentError extends Error{
+class IllegalArgumentError extends Error {
     constructor(message) {
         super(message);
-        this.name="IllegalArgumentError"
+        this.name = "IllegalArgumentError"
     }
 }
 
@@ -90,16 +90,58 @@ export function splitSentence(offset, string, subSize) {
 /**
  * Divides a Sentence in Parts, each having not more than <code>subSize</code> words, sends these to minimal distance and calculates than, which is most likely to be correct
  * @param string The Sentence to be interpreted
- * @param goals Passed to {@link minimalDistance}
+ * @param goals An Array containing the words or containing arrays with alternatives in it
  * @param subSize Number of words per subString, defaults to two if undefined. If smaller then 1, this function passes the whole string to {@link minimalDistance} at once
+ * @return Returns Index of the Entry that was most likely
  */
- export function interpretSentence(string, goals, subSize) {
-    for (let o = 0; o < subSize; o++) {
-        let subStrings = splitSentence(o, string, subSize);
+export function interpretSentence(string, goals, subSize) {
+    if (goals.length < 1) {
+        throw new IllegalArgumentError("goals must not be empty!")
     }
+    for (let i = 0; i < goals.length; i++) {
+        if (typeof (goals[i]) === "string") {
+            goals[i] = [goals[i]];
+        }
+    }
+    let results = [];
+    for (let i = 0; i < goals.length; i++) {
+        let lResults = [];
+        const goal = goals[i];
+        for (let o = 0; o < subSize; o++) {
+            let subStrings = splitSentence(o, string, subSize);
+            for (const subString of subStrings) {
+                let ld = minimalDistance(subString, goal);
+                if (ld !== invalid) {
+                    lResults.push(ld);
+                }
+            }
+        }
+        results.push(lResults);
+    }
+
+    let points = [goals.length];
+    for (let i = 0; i < results.length; i++) {
+        points[i] = 0;
+        for (let result of results[i]) {
+            points[i] += (1 / (result.distance + (subSize-result.goal.split(" ").length)*0.1));
+        }
+    }
+
+    let retI = 0;
+    for (let i = 0; i < points.length; i++) {
+        if (points[i] > points[retI]) {
+            retI = i;
+        }
+    }
+    if (results.length === 0) {
+        return NaN;
+    }
+
+    return retI;
+
 }
 
- /**
+/**
  * Decides, if word is most likely Yes, No or Maybe (including Variations) and uses language
  * @param word Input of the User
  * @param lang The Language the User is using as two-letter-code
@@ -107,15 +149,25 @@ export function splitSentence(offset, string, subSize) {
  */
 export function yesNoMaybe(word, lang) {
     const alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
-    let results = [];
-    results.push({distance: minimalDistance(word, alternatives.yes).distance, goal: "yes"});
-    results.push({distance: minimalDistance(word, alternatives.no).distance, goal: "no"});
-    results.push({distance: minimalDistance(word, alternatives.maybe).distance, goal: "maybe"});
-    results.sort((a, b) => a.distance - b.distance)
+    const keys = Object.keys(alternatives);
+    const values = Object.values(alternatives);
 
-    let result = results[0];
-    if (result.distance === Number.MAX_SAFE_INTEGER) {
-        result.goal = invalid.goal;
+    // let results = [];
+    // results.push({distance: minimalDistance(word, alternatives.yes).distance, goal: "yes"});
+    // results.push({distance: minimalDistance(word, alternatives.no).distance, goal: "no"});
+    // results.push({distance: minimalDistance(word, alternatives.maybe).distance, goal: "maybe"});
+    // results.sort((a, b) => a.distance - b.distance)
+    //
+    // let result = results[0];
+    // if (result.distance === Number.MAX_SAFE_INTEGER) {
+    //     result.goal = invalid.goal;
+    // }
+    const index = interpretSentence(word, values, 2);
+    if (isNaN(index)) {
+        return invalid;
     }
-    return result;
+    const key = keys[index];
+    return {distance: NaN, goal: key};
+
+
 }
