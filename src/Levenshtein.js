@@ -6,8 +6,8 @@ const invalid = {distance: Number.MAX_SAFE_INTEGER, goal: "unknown"};
 /**
  * Searchs through Array, to find the word that is closest to the word given as parameter
  * @param word The Word, that was given as an Input
- * @param goals The Words, which {@code word} will be compared to
- * @return Returns an Object containing the closest word and its distance to the entered word in form of {@code {distance: Number, goal: String}}. If no word is found, the method returns {@link invalid}
+ * @param goals The Words, which <code>word</code> will be compared to
+ * @return Returns an Object containing the closest word and its distance to the entered word in form of <code>{distance: Number, goal: String}</code>. If no word is found, the method returns {@link invalid}
  */
 export function minimalDistance(word, goals) {
     if (word.length <= 0) {
@@ -36,7 +36,7 @@ export function minimalDistance(word, goals) {
  * Decides, if word is most likely Yes, No or Maybe (including Variations) and uses language
  * @param word Input of the User
  * @param lang The Language the User is using as two-letter-code
- * @return returns Object in same form as {@link minimalDistance} where goal is {@code "yes"},{@code "no"} or {@code "maybe"}
+ * @return returns Object in same form as {@link minimalDistance} for <code>goals = ["yes", "no", "maybe"]</code>
  */
 export function yesNoMaybe(word, lang) {
     const alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
@@ -48,7 +48,7 @@ export function yesNoMaybe(word, lang) {
 
     let result = results[0];
     if (result.distance === Number.MAX_SAFE_INTEGER) {
-        result.goal = null;
+        result.goal = invalid.goal;
     }
     return result;
 }
