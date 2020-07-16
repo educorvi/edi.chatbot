@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import Chatmessage from "@/components/Chatmessage";
+    import Chatmessage from "../components/Chatmessage";
     export default {
         name: "Chatroom",
         components: {Chatmessage},

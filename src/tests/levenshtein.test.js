@@ -1,5 +1,5 @@
 /* eslint-disable no-undef,no-unused-vars */
-import {splitSentence} from "../Levenshtein";
+import {splitSentence} from "../chatLogic";
 import {describe, expect, test} from "@jest/globals";
 
 const STRINGS = {

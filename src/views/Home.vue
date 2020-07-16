@@ -21,8 +21,8 @@
 
 <script>
     // @ is an alias to /src
-    import {yesNoMaybe} from "@/Levenshtein";
-    import Chatroom from "@/components/Chatroom";
+    import {yesNoMaybe} from "../chatLogic";
+    import Chatroom from "../components/Chatroom";
 
     export default {
         name: 'Home',
