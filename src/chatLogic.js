@@ -149,7 +149,6 @@ export function interpretSentence(string, goals) {
             }
         }
     }
-    console.log(subSize)
     let results = recHelperInterpretSentence(goals, subSize, string);
 
     let points = [goals.length];
