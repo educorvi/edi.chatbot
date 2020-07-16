@@ -95,6 +95,9 @@ export function splitSentence(offset, string, subSize) {
     return subStrings;
 }
 
+/**
+ * helper for recursion of {@link interpretSentence}. Not for external usage
+ */
 function recHelperInterpretSentence(goals, subSize, string) {
     let results = [];
     for (let i = 0; i < goals.length; i++) {
@@ -127,10 +130,9 @@ function recHelperInterpretSentence(goals, subSize, string) {
  * Uses the formula described <a href="">here</a>
  * @param string The Sentence to be interpreted
  * @param goals An Array containing the words or containing arrays with alternatives in it
- * @param subSize Number of words per subString, defaults to two if undefined. Should ideally be set to the maximal amount of words in one String in the goals Array. If smaller then 1, this function passes the whole string to {@link minimalDistance} at once
- * @return Returns Index of the Entry that was most likely
+ * @return Returns Index of the Entry that is most likely
  */
-export function interpretSentence(string, goals, subSize) {
+export function interpretSentence(string, goals) {
     if (goals.length < 1) {
         throw new IllegalArgumentError("goals must not be empty!")
     }
@@ -139,6 +141,15 @@ export function interpretSentence(string, goals, subSize) {
             goals[i] = [goals[i]];
         }
     }
+    let subSize = 1;
+    for (const goal of goals) {
+        for (const goalElement of goal) {
+            if (goalElement.split(" ").length > subSize) {
+                subSize = goalElement.split(" ").length;
+            }
+        }
+    }
+    console.log(subSize)
     let results = recHelperInterpretSentence(goals, subSize, string);
 
     let points = [goals.length];
