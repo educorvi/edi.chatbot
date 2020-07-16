@@ -22,7 +22,7 @@ export function minimalDistance(word, goals) {
         distance: Number.MAX_SAFE_INTEGER
     };
     for (const goal of goals) {
-        let d = levensthein.get(word, goal);
+        let d = levensthein.get(word.toLowerCase(), goal.toLowerCase());
         if (d < result.distance) {
             result = {
                 distance: d,
@@ -155,7 +155,7 @@ export function interpretSentence(string, goals) {
     for (let i = 0; i < results.length; i++) {
         points[i] = 0;
         for (let result of results[i]) {
-            points[i] += (1 / (result.distance + (subSize-result.goal.split(" ").length)*0.1));
+            points[i] += (result.goal.split(" ").length / (result.distance + (subSize-result.goal.split(" ").length)*0.1));
         }
     }
 
@@ -169,6 +169,7 @@ export function interpretSentence(string, goals) {
         return NaN;
     }
     console.log(results)
+    console.log(points)
 
     return retI;
 

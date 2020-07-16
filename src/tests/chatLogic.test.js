@@ -1,6 +1,7 @@
 /* eslint-disable no-undef,no-unused-vars */
-import {splitSentence} from "../chatLogic";
+import {splitSentence, yesNoMaybe} from "../chatLogic";
 import {describe, expect, test} from "@jest/globals";
+import testlists from "./testlists";
 
 const STRINGS = {
     oneWord: "hallo",
@@ -26,8 +27,7 @@ describe("split", () => {
     test("subStrings have right size", () => {
         for (let i = 1; i < 6; i++) {
             for (let o = 0; o < i; o++) {
-                const words = getAllStrings();
-                for (const word of words) {
+                for (const word of getAllStrings()) {
                     let res = splitSentence(o, STRINGS.oneWord, i);
                     expect(res.length).toBeGreaterThan(0);
                     for (const re of res) {
@@ -37,5 +37,12 @@ describe("split", () => {
             }
         }
     })
-
 })
+
+describe("yesNoMaybe", () => {
+    const list = testlists.yesNoMaybe.de;
+    const keys = Object.keys(list);
+    for (const key of keys) {
+        test(key, () => expect(yesNoMaybe(key, "de")["goal"]).toEqual(list[key]));
+    }
+});
