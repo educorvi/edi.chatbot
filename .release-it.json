@@ -1,6 +1,14 @@
 {
   "git": {
     "commitMessage": "Release v${version}",
-    "requireCleanWorkingDir": false
+    "requireCleanWorkingDir": false,
+    "requireBranch": "master"
+  },
+  "github": {
+    "release": true,
+    "assets":["dist.zip"]
+  },
+  "npm": {
+    "publish": false
   }
 }
