@@ -135,7 +135,7 @@ function recHelperInterpretSentence(goals, subSize, string) {
  * Divides a Sentence in Parts, each having not more than <code>subSize</code> words, sends these to minimal distance and calculates than, which is most likely to be correct
  * Uses the formula described <a href="https://doku.educorvi.de/educorvi/chatbot/entscheidungsfindung">here</a>
  * @param {string} string The Sentence to be interpreted
- * @param {string[][]} goals An Array containing the words or containing arrays with alternatives in it. One dimensional Array will automatically be put in two Dimensions
+ * @param {string[]|Array<Array<string>>} goals An Array containing the words or containing arrays with alternatives in it. One dimensional Array will automatically be put in two Dimensions
  * @return {number} Returns Index of the Entry that is most likely
  */
 export function interpretSentence(string, goals) {
@@ -179,6 +179,8 @@ export function interpretSentence(string, goals) {
     if (results.length === 0 || arraySum(points)===0) {
         return NaN;
     }
+    console.log(results);
+    console.log(points);
 
     return retI;
 
