@@ -53,5 +53,5 @@ describe("yesNoMaybe", () => {
 });
 
 describe("removeGarbage", () => {
-    test("Returns correct String", () => expect(removeGarbage(STRINGS.garbageString.original, "de")).toEqual(STRINGS.garbageString.solution))
+    test("Returns correct String", () => expect(removeGarbage(STRINGS.garbageString.original, "de")).toEqual(STRINGS.garbageString.solution.toLowerCase()))
 })
