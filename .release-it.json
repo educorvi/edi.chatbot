@@ -1,0 +1,6 @@
+{
+  "git": {
+    "commitMessage": "Release v${version}",
+    "requireCleanWorkingDir": false
+  }
+}
