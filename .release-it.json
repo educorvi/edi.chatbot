@@ -2,7 +2,8 @@
   "git": {
     "commitMessage": "Release v${version}",
     "requireCleanWorkingDir": false,
-    "requireBranch": "master"
+    "requireBranch": "master",
+    "push": true
   },
   "github": {
     "release": true,
