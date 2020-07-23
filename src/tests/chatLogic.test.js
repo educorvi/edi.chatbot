@@ -1,9 +1,14 @@
 /* eslint-disable no-undef,no-unused-vars */
-import {splitSentence, yesNoMaybe} from "../chatLogic";
+// noinspection ES6PreferShortImport
+import {removeGarbage, splitSentence, yesNoMaybe} from "../chatLogic";
 import {describe, expect, test} from "@jest/globals";
 import testlists from "./testlists";
 
 const STRINGS = {
+    garbageString: {
+        original: "Sicher bin ich mir da nicht",
+        solution: "Sicher nicht"
+    },
     oneWord: "hallo",
     short: "Testen ist toll",
     normal1: "Hallo das ist eine ganz fantastische Angelegenheit",
@@ -46,3 +51,7 @@ describe("yesNoMaybe", () => {
         test(key, () => expect(yesNoMaybe(key, "de")["goal"]).toEqual(list[key]));
     }
 });
+
+describe("removeGarbage", () => {
+    test("Returns correct String", () => expect(removeGarbage(STRINGS.garbageString.original, "de")).toEqual(STRINGS.garbageString.solution))
+})

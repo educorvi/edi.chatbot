@@ -6,7 +6,7 @@ export default {
     "result":"Ergebnis",
     "try":"Testen",
     "send":"Senden",
-    "unknown":"Unbekannt"
+    "unknown":"Nicht verstanden"
 }
 
 export const allAlternatives = {
@@ -14,3 +14,14 @@ export const allAlternatives = {
     "no": ["ne", "nein", "nö", "nicht"],
     "maybe": ["Vielleicht", "Weiß nicht","weiß ich nicht", "nicht sicher", "keine ahnung", "möglicherweiße"]
 }
+
+export const garbage = [
+    "ich", "du", "er", "sie", "es", "wir", "ihr", "sie",
+    "mein", "dein", "sein", "unser", "euer", "ihr",
+    "bin", "bist", "ist", "sind", "seid",
+    "mir", "dir", "ihm", "ihr", "uns", "euch", "ihnen",
+    "der", "die", "das",
+    "ein", "eine", "einer",
+    "da", "dann", "darauf", "jetzt", "und", "oder", "wenn",
+    "ist"
+    ]

@@ -1,5 +1,9 @@
 /* eslint-disable no-unused-vars */
 const levensthein = require('fast-levenshtein')
+/**
+ * Indicates, that no decision could be made
+ * @type {{goal: string, distance: number}}
+ */
 const invalid = {distance: Number.MAX_SAFE_INTEGER, goal: "unknown"};
 /**
  * Highest tolerated Distance for Levenshtein
@@ -10,9 +14,9 @@ const tolerance = 3;
 
 /**
  * Searchs through Array, to find the word that is closest to the word given as parameter
- * @param word The Word, that was given as an Input
- * @param goals The Words, which <code>word</code> will be compared to
- * @return Returns an Object containing the closest word and its distance to the entered word in form of <code>{distance: Number, goal: String}</code>. If no word is found, the method returns {@link invalid}
+ * @param {string} word The Word, that was given as an Input
+ * @param {string[]} goals The Words, which <code>word</code> will be compared to
+ * @return {{distance: number, goal: string}} Returns an Object containing the closest word and its distance. If no word is found, the method returns {@link invalid}
  */
 export function minimalDistance(word, goals) {
     if (word.length <= 0) {
@@ -48,20 +52,22 @@ class IllegalArgumentError extends Error {
     }
 }
 
+/**
+ * Calculates the Sum of an Array
+ * @param {Number[]} array to be reduced
+ * @return {number} sum
+ */
 function arraySum(array) {
-    let ret = 0;
-    for (const arrayElement of array) {
-        ret += arrayElement;
-    }
-    return ret;
+    const reducer = (accumulator, current) => accumulator + current;
+    return array.reduce(reducer);
 }
 
 /**
  * Splits a String in Groups of words
- * @param offset The offset at which the splitting should start; for example if offset equals one, the first word is put in the Array as an entry, for 2 it's the first two words, and so on. Must be smaller than <code>subSize</code>
- * @param string The String to be split
- * @param subSize The Number of words to leave together. Defaults to two if undefined, if smaller then one, <code>string</code> will be returned
- * @return Array of split wordgroups
+ * @param {number} offset The offset at which the splitting should start; for example if offset equals one, the first word is put in the Array as an entry, for 2 it's the first two words, and so on. Must be smaller than <code>subSize</code>
+ * @param {string} string The String to be split
+ * @param {number} subSize The Number of words to leave together. Defaults to two if undefined, if smaller then one, <code>string</code> will be returned
+ * @return {string[]} Array of split wordgroups
  */
 export function splitSentence(offset, string, subSize) {
     if (subSize === undefined) {
@@ -127,10 +133,10 @@ function recHelperInterpretSentence(goals, subSize, string) {
 
 /**
  * Divides a Sentence in Parts, each having not more than <code>subSize</code> words, sends these to minimal distance and calculates than, which is most likely to be correct
- * Uses the formula described <a href="">here</a>
- * @param string The Sentence to be interpreted
- * @param goals An Array containing the words or containing arrays with alternatives in it
- * @return Returns Index of the Entry that is most likely
+ * Uses the formula described <a href="https://doku.educorvi.de/educorvi/chatbot/entscheidungsfindung">here</a>
+ * @param {string} string The Sentence to be interpreted
+ * @param {string[][]} goals An Array containing the words or containing arrays with alternatives in it. One dimensional Array will automatically be put in two Dimensions
+ * @return {number} Returns Index of the Entry that is most likely
  */
 export function interpretSentence(string, goals) {
     if (goals.length < 1) {
@@ -165,32 +171,46 @@ export function interpretSentence(string, goals) {
             retI = i;
         }
     }
+    for (let i = 0; i < points.length; i++) {
+        if (points[i] === points[retI] && i !==retI) {
+            return NaN;
+        }
+    }
     if (results.length === 0 || arraySum(points)===0) {
         return NaN;
     }
-    console.log(results)
-    console.log(points)
 
     return retI;
 
 }
 
 /**
+ * Removes unnecessary words from string. Unnecessary words are to be defined in the language files as Array named garbage
+ * @param {string} string String to be shortened
+ * @param {string} lang language the string is in
+ * @return {string} String with removed Words
+ */
+export function removeGarbage(string, lang) {
+    string = string.toLowerCase();
+    const keywords = require("./lang/translations/" + lang + ".js")["garbage"];
+    const regExp = new RegExp('\\b(' + keywords.join('|') + ')\\b', 'g');
+    return (string || "").replace(regExp, '').replace(/[ ]{2,}/, ' ');
+}
+
+/**
  * Decides, if word is most likely Yes, No or Maybe (including Variations) and uses language
- * @param word Input of the User
- * @param lang The Language the User is using as two-letter-code
- * @return returns Object in same form as {@link minimalDistance} for <code>goals = ["yes", "no", "maybe"]</code>
+ * @param {string} word Input of the User
+ * @param {string} lang The Language the User is using as two-letter-code
+ * @return {{distance: number, goal: string}} Decides if yes, no or maybe was most likely meant
  */
 export function yesNoMaybe(word, lang) {
     const alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
     const keys = Object.keys(alternatives);
     const values = Object.values(alternatives);
-    const index = interpretSentence(word, values, 2);
+    const index = interpretSentence(removeGarbage(word, lang), values, 2);
     if (isNaN(index)) {
         return invalid;
     }
     const key = keys[index];
     return {distance: NaN, goal: key};
-
-
 }
