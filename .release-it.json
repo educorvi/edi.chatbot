@@ -3,7 +3,7 @@
     "commitMessage": "Release v${version}",
     "requireCleanWorkingDir": false,
     "requireBranch": "master",
-    "push": false,
+    "push": true,
     "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/master/templates/keepachangelog.hbs"
   },
   "github": {
@@ -16,8 +16,7 @@
   "hooks": {
     "before:init": ["npm run lint", "npm test"],
     "after:bump": ["npm run doc", "npm run build", "npm run zip"],
-    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}.",
-    "after:git:release": "git push --follow-tags"
+    "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
   }
 
 }
