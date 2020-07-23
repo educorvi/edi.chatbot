@@ -165,6 +165,9 @@ export function interpretSentence(string, goals) {
         }
     }
 
+    console.log(results);
+    console.log(points);
+
     let retI = 0;
     for (let i = 0; i < points.length; i++) {
         if (points[i] > points[retI]) {
@@ -179,8 +182,6 @@ export function interpretSentence(string, goals) {
     if (results.length === 0 || arraySum(points)===0) {
         return NaN;
     }
-    console.log(results);
-    console.log(points);
 
     return retI;
 

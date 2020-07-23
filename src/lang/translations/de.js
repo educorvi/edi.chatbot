@@ -10,9 +10,9 @@ export default {
 }
 
 export const allAlternatives = {
-    "yes": ["ja", "schon", "sicher"],
+    "yes": ["ja", "schon", "sicher", "jup", "jep"],
     "no": ["ne", "nein", "nö", "nicht"],
-    "maybe": ["Vielleicht", "Weiß nicht","weiß ich nicht", "nicht sicher", "keine ahnung", "möglicherweiße", "könnte sein", "unsicher"]
+    "maybe": ["Vielleicht", "Weiß nicht", "nicht sicher", "keine ahnung", "möglicherweiße", "unsicher"]
 }
 
 export const garbage = [
@@ -22,6 +22,6 @@ export const garbage = [
     "mir", "dir", "ihm", "ihr", "uns", "euch", "ihnen",
     "der", "die", "das",
     "ein", "eine", "einer",
-    "da", "dann", "darauf", "jetzt", "und", "oder", "wenn",
+    "da", "dann", "darauf", "jetzt", "und", "oder", "wenn", "aber",
     "ist"
     ]
