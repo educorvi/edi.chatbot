@@ -3,7 +3,8 @@
     "commitMessage": "Release v${version}",
     "requireCleanWorkingDir": false,
     "requireBranch": "master",
-    "push": true
+    "push": true,
+    "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/master/templates/keepachangelog.hbs"
   },
   "github": {
     "release": true,
