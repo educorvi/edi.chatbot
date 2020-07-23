@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "jest",
+    "test": "jest --silent",
     "doc": "documentation build src/chatLogic.js -f html -o docs",
     "zip": "vue-cli-service zip:build",
     "release": "dotenv release-it"
