@@ -9,7 +9,7 @@
     "test": "jest",
     "doc": "documentation build src/chatLogic.js -f html -o docs",
     "zip": "vue-cli-service zip:build",
-    "release": "dotenv -- release-it -VV"
+    "release": "dotenv release-it"
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
