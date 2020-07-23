@@ -1,7 +1,7 @@
 {
-  "name": "chatbot",
+  "name": "edi.chatbot",
   "version": "0.2.3",
-  "private": true,
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -39,6 +39,14 @@
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-build-zip": "^0.0.3",
     "vue-template-compiler": "^2.6.11"
+  },
+  "main": "npm-index.js",
+  "bugs": {
+    "url": "https://github.com/educorvi/edi.chatbot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/educorvi/edi.chatbot"
   },
   "eslintConfig": {
     "root": true,

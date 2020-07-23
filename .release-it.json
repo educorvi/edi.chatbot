@@ -11,7 +11,7 @@
     "assets":["./dist.zip"]
   },
   "npm": {
-    "publish": false
+    "publish": true
   },
   "hooks": {
     "before:init": ["npm run lint", "npm test"],
