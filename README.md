@@ -14,7 +14,7 @@ npm run serve
 npm run build
 ```
 
-##Also usable as npm package
+## Also usable as npm package
 ```
 npm install edi.chatbot
 ```
