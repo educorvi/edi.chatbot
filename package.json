@@ -9,7 +9,8 @@
     "test": "jest --silent",
     "doc": "documentation build src/chatLogic.js -f html -o docs",
     "zip": "vue-cli-service zip:build",
-    "release": "dotenv release-it"
+    "release": "dotenv release-it",
+    "clean": "del-cli dist*"
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
@@ -38,7 +39,8 @@
     "release-it": "^13.6.5",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-build-zip": "^0.0.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "del-cli": "^3.0.1"
   },
   "main": "npm-index.js",
   "bugs": {
