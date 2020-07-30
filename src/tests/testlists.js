@@ -19,9 +19,10 @@ export default {
             "i'm not sure abozt that":"maybe",
             "rather not":"no",
             "i honestly don't know":"maybe",
-            "i think so":"unknown",
+            "i think so":"yes",
             "i don't think so":"no",
-            "i dont know":"maybe"
+            "i dont know":"maybe",
+            "i don't know":"maybe"
         }
     }
 }

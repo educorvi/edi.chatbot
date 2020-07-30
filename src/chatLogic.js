@@ -161,7 +161,7 @@ export function interpretSentence(string, goals) {
     for (let i = 0; i < results.length; i++) {
         points[i] = 0;
         for (let result of results[i]) {
-            points[i] += (result.goal.split(" ").length / (result.distance + (subSize-result.goal.split(" ").length)*0.7));
+            points[i] += (result.goal.split(" ").length / (result.distance + (subSize-result.goal.split(" ").length)*1.2));
         }
     }
 
