@@ -139,7 +139,7 @@ function recHelperInterpretSentence(goals, subSize, string) {
  * @return {number} Returns Index of the Entry that is most likely
  */
 export function interpretSentence(string, goals) {
-    if (goals.length < 1) {
+    if (!goals ||goals.length < 1) {
         throw new IllegalArgumentError("goals must not be empty!")
     }
     for (let i = 0; i < goals.length; i++) {
@@ -210,7 +210,7 @@ export function yesNoMaybe(word, lang) {
     const alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
     const keys = Object.keys(alternatives);
     const values = Object.values(alternatives);
-    const index = interpretSentence(removeGarbage(word, lang), values, 2);
+    const index = interpretSentence(removeGarbage(word, lang), values);
     if (isNaN(index)) {
         return invalid;
     }

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef,no-unused-vars */
 // noinspection ES6PreferShortImport
-import {removeGarbage, splitSentence, yesNoMaybe} from "../chatLogic";
+import {interpretSentence, removeGarbage, splitSentence, yesNoMaybe} from "../chatLogic";
 import {describe, expect, test} from "@jest/globals";
 import testlists from "./testlists";
 
@@ -41,6 +41,18 @@ describe("split", () => {
                 }
             }
         }
+    })
+})
+
+describe("interpretSentence", () => {
+    test('null paramerter should throw IllegalArgument', function () {
+        expect(interpretSentence).toThrow();
+    });
+    test('no goals should throw IllegalArgument', function () {
+        expect(() => interpretSentence("anc", [])).toThrow();
+    });
+    test('Basic test', () => {
+        expect(interpretSentence("Hallo du da, wie geht es dir?", ["Hallo", "Tschüß", "Hund"])).toBe(0);
     })
 })
 
