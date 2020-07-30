@@ -210,7 +210,12 @@ export function removeGarbage(string, lang) {
  * @return {{distance: number, goal: string}} Decides if yes, no or maybe was most likely meant
  */
 export function yesNoMaybe(word, lang) {
-    const alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
+    let alternatives;
+    try {
+        alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
+    }catch (e) {
+        throw new IllegalArgumentError(`File for language "${lang}" doesn't exist`);
+    }
     const keys = Object.keys(alternatives);
     const values = Object.values(alternatives);
     const index = interpretSentence(removeGarbage(word, lang), values);

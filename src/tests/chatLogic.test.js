@@ -59,6 +59,7 @@ describe("interpretSentence", () => {
 describe("yesNoMaybe", () => {
     const lists = testlists.yesNoMaybe;
     const languages = Object.keys(lists);
+    test("invalid language", () => expect(() => yesNoMaybe("asdsd", "cz")["goal"]).toThrow());
     for (const language of languages) {
         describe(language, () => {
             let list = lists[language];
