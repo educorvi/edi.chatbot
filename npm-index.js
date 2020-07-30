@@ -1,4 +1,4 @@
-import {interpretSentence, minimalDistance, removeGarbage, yesNoMaybe} from "src/chatLogic";
+import {interpretSentence, minimalDistance, removeGarbage, yesNoMaybe} from "./src/chatLogic";
 
 export default {
     yesNoMaybe,
