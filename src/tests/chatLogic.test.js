@@ -57,10 +57,16 @@ describe("interpretSentence", () => {
 })
 
 describe("yesNoMaybe", () => {
-    const list = testlists.yesNoMaybe.de;
-    const keys = Object.keys(list);
-    for (const key of keys) {
-        test(key, () => expect(yesNoMaybe(key, "de")["goal"]).toEqual(list[key]));
+    const lists = testlists.yesNoMaybe;
+    const languages = Object.keys(lists);
+    for (const language of languages) {
+        describe(language, () => {
+            let list = lists[language];
+            const keys = Object.keys(list);
+            for (const key of keys) {
+                test(key, () => expect(yesNoMaybe(key, language)["goal"]).toEqual(list[key]));
+            }
+        })
     }
 });
 
