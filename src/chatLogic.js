@@ -161,7 +161,7 @@ export function interpretSentence(string, goals) {
     for (let i = 0; i < results.length; i++) {
         points[i] = 0;
         for (let result of results[i]) {
-            points[i] += (result.goal.split(" ").length / (result.distance + (subSize-result.goal.split(" ").length)*0.1));
+            points[i] += (result.goal.split(" ").length / (result.distance + (subSize-result.goal.split(" ").length)*0.7));
         }
     }
 
@@ -197,7 +197,9 @@ export function removeGarbage(string, lang) {
     string = string.toLowerCase();
     const keywords = require("./lang/translations/" + lang + ".js")["garbage"];
     const regExp = new RegExp('\\b(' + keywords.join('|') + ')\\b', 'g');
-    return (string || "").replace(regExp, '').replace(/[ ]{2,}/, ' ');
+    const fin =  (string || "").replace(regExp, '').replace(/[ ]{2,}/, ' ');
+    console.log(fin);
+    return fin;
 }
 
 /**
