@@ -54,8 +54,6 @@
             }
         },
         created() {
-            // let userLang = navigator.language || navigator.userLanguage;
-            // alert ("The language is: " + userLang);
         }
     }
 </script>
