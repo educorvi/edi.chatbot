@@ -11,7 +11,8 @@
     "assets":["./dist.zip"]
   },
   "npm": {
-    "publish": true
+    "publish": true,
+    "publishPath": "src/chatLogic"
   },
   "hooks": {
     "before:init": ["npm run lint", "npm test"],

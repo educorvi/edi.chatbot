@@ -1,6 +1,6 @@
 /* eslint-disable no-undef,no-unused-vars */
 // noinspection ES6PreferShortImport
-import {interpretSentence, removeGarbage, splitSentence, yesNoMaybe} from "../chatLogic";
+import {interpretSentence, removeGarbage, splitSentence, yesNoMaybe} from "../chatLogic/chatLogic";
 import {describe, expect, test} from "@jest/globals";
 import testlists from "./testlists";
 

@@ -13,7 +13,7 @@ Vue.use(IconsPlugin)
 
 
 import VueI18n from 'vue-i18n';
-import messages from './lang';
+import messages from './chatLogic/lang';
 import router from './router'
 Vue.use(VueI18n);
 export const i18n = new VueI18n({

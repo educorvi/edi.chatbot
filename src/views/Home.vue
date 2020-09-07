@@ -21,7 +21,7 @@
 
 <script>
     // @ is an alias to /src
-    import {yesNoMaybe} from "../chatLogic";
+    import {yesNoMaybe} from "../chatLogic/chatLogic";
     import Chatroom from "../components/Chatroom";
 
     export default {

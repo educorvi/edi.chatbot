@@ -7,10 +7,10 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "jest --silent",
-    "doc": "documentation build src/chatLogic.js -f html -o docs",
-    "zip": "vue-cli-service zip:build",
+    "doc": "documentation build src/chatLogic/chatLogic.js -f html -o docs",
+    "zip": "node zip.js",
     "release": "dotenv release-it",
-    "clean": "del-cli dist*"
+    "clean": "del-cli dist* demoDist.zip"
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
@@ -29,6 +29,7 @@
     "archiver": "^5.0.0",
     "auto-changelog": "^2.2.0",
     "babel-eslint": "^10.1.0",
+    "del-cli": "^3.0.1",
     "documentation": "^13.0.2",
     "dotenv-cli": "^3.2.0",
     "eslint": "^6.7.2",
@@ -38,11 +39,9 @@
     "npx": "^10.2.2",
     "release-it": "^13.6.5",
     "sass-loader": "^8.0.2",
-    "vue-cli-plugin-build-zip": "^0.0.3",
-    "vue-template-compiler": "^2.6.11",
-    "del-cli": "^3.0.1"
+    "vue-template-compiler": "^2.6.11"
   },
-  "main": "npm-index.js",
+  "main": "src/chatLogic/npm-index.js",
   "bugs": {
     "url": "https://github.com/educorvi/edi.chatbot/issues"
   },
