@@ -1,9 +1,19 @@
 /* eslint-disable no-unused-vars */
 const levensthein = require('fast-levenshtein')
+
+import defaultTranslations from "./lang"
+
+/**
+ * Loads and sets translations
+ * @type {object}
+ */
+let translations = defaultTranslations;
+
 /**
  * Indicates, that no decision could be made
  * @type {{goal: string, distance: number}}
  */
+
 const invalid = {distance: Number.MAX_SAFE_INTEGER, goal: "unknown"};
 /**
  * Highest tolerated Distance for Levenshtein
@@ -186,6 +196,19 @@ export function interpretSentence(string, goals, maxdistance = tolerance) {
 }
 
 /**
+ * Adds or overrides translations
+ * @param trans An object containing the translations to be added in the same format as in the default lang files
+ */
+export function addTranslations(trans) {
+    for (const key of Object.keys(trans)) {
+        if (!trans[key].garbage) {
+            throw new IllegalArgumentError(`Translation "${key}" is missing garbage property`);
+        }
+    }
+    translations = {...translations, ...trans};
+}
+
+/**
  * Removes unnecessary words from string. Unnecessary words are to be defined in the language files as Array named garbage
  * @param {string} string String to be shortened
  * @param {string} lang language the string is in
@@ -193,11 +216,9 @@ export function interpretSentence(string, goals, maxdistance = tolerance) {
  */
 export function removeGarbage(string, lang) {
     string = string.toLowerCase();
-    const keywords = require("./lang/translations/" + lang + ".js")["garbage"];
+    const keywords = translations[lang]["garbage"];
     const regExp = new RegExp('\\b(' + keywords.join('|') + ')\\b', 'g');
-    const fin = (string || "").replace(regExp, '').replace(/[ ]{2,}/, ' ');
-    console.log(fin);
-    return fin;
+    return (string || "").replace(regExp, '').replace(/[ ]{2,}/, ' ');
 }
 
 /**
@@ -207,12 +228,12 @@ export function removeGarbage(string, lang) {
  * @return {{distance: number, goal: string}} Decides if yes, no or maybe was most likely meant
  */
 export function yesNoMaybe(word, lang) {
-    let alternatives;
-    try {
-        alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
-    } catch (e) {
-        throw new IllegalArgumentError(`File for language "${lang}" doesn't exist`);
+    if (!translations[lang]["allAlternatives"]) {
+        throw new IllegalArgumentError(`Translation of "allAlternatives" for language "${lang}" doesn't exist`);
     }
+    let alternatives = translations[lang]["allAlternatives"];
+
+
     const keys = Object.keys(alternatives);
     const values = Object.values(alternatives);
     const index = interpretSentence(removeGarbage(word, lang), values);

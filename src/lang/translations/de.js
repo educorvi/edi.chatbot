@@ -1,14 +1,3 @@
-export default {
-    "yes":"Ja",
-    "no":"Nein",
-    "maybe":"Vielleicht",
-    "message":"Nachricht",
-    "result":"Ergebnis",
-    "try":"Testen",
-    "send":"Senden",
-    "unknown":"Nicht verstanden"
-}
-
 export const allAlternatives = {
     "yes": ["ja", "schon", "sicher", "jup", "jep"],
     "no": ["ne", "nein", "nö", "nicht"],
@@ -25,3 +14,19 @@ export const garbage = [
     "da", "dann", "darauf", "jetzt", "und", "oder", "wenn", "aber",
     "ist"
     ]
+
+
+export default {
+    "yes":"Ja",
+    "no":"Nein",
+    "maybe":"Vielleicht",
+    "message":"Nachricht",
+    "result":"Ergebnis",
+    "try":"Testen",
+    "send":"Senden",
+    "unknown":"Nicht verstanden",
+
+
+    allAlternatives,
+    garbage
+}

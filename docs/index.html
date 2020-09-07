@@ -28,6 +28,16 @@
               
                 
                 <li><a
+                  href='#translations'
+                  class="">
+                  translations
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#invalid'
                   class="">
                   invalid
@@ -88,9 +98,9 @@
               
                 
                 <li><a
-                  href='#rechelperinterpretsentence'
+                  href='#interpretsentence'
                   class="">
-                  recHelperInterpretSentence
+                  interpretSentence
                   
                 </a>
                 
@@ -98,9 +108,9 @@
               
                 
                 <li><a
-                  href='#interpretsentence'
+                  href='#addtranslations'
                   class="">
-                  interpretSentence
+                  addTranslations
                   
                 </a>
                 
@@ -126,6 +136,16 @@
                 
                 </li>
               
+                
+                <li><a
+                  href='#index'
+                  class="">
+                  index
+                  
+                </a>
+                
+                </li>
+              
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
@@ -134,6 +154,61 @@
         </div>
       </div>
       <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='translations'>
+      translations
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Loads and sets translations</p>
+
+    <div class='pre p1 fill-light mt0'>translations</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
         
           
           <section class='p2 mb2 clearfix bg-white minishadow'>
@@ -261,7 +336,7 @@
 
   <p>Searchs through Array, to find the word that is closest to the word given as parameter</p>
 
-    <div class='pre p1 fill-light mt0'>minimalDistance(word: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, goals: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>): {distance: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, goal: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}</div>
+    <div class='pre p1 fill-light mt0'>minimalDistance(word: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, goals: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>, maxdistance: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): {distance: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, goal: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}</div>
   
   
 
@@ -293,6 +368,17 @@
 word
 </code>
  will be compared to
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>maxdistance</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            = <code>tolerance</code>)</code>
+	    The maximal levensthein distance that the word may have. Defaults to 
+<a href="#tolerance">tolerance</a>
 
           </div>
           
@@ -576,85 +662,6 @@ string
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='rechelperinterpretsentence'>
-      recHelperInterpretSentence
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>helper for recursion of <a href="#interpretsentence">interpretSentence</a>. Not for external usage</p>
-
-    <div class='pre p1 fill-light mt0'>recHelperInterpretSentence(goals: any, subSize: any, string: any)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>goals</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>subSize</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>string</span> <code class='quiet'>(any)</code>
-	    
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
     <h3 class='fl m0' id='interpretsentence'>
       interpretSentence
     </h3>
@@ -667,7 +674,7 @@ string
 Uses the formula described <a href="https://doku.educorvi.de/educorvi/chatbot/entscheidungsfindung">here</a><br>
 <img style="max-width: 90%; width: 500px" src="https://doku.educorvi.de/educorvi/chatbot/gleichung.png"></p>
 
-    <div class='pre p1 fill-light mt0'>interpretSentence(string: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, goals: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>>)): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+    <div class='pre p1 fill-light mt0'>interpretSentence(string: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, goals: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>>), maxdistance: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
   
   
 
@@ -700,6 +707,17 @@ Uses the formula described <a href="https://doku.educorvi.de/educorvi/chatbot/en
           
         </div>
       
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>maxdistance</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
+            = <code>tolerance</code>)</code>
+	    The maximal levensthein distance that the word may have. Defaults to 
+<a href="#tolerance">tolerance</a>
+
+          </div>
+          
+        </div>
+      
     </div>
   
 
@@ -713,6 +731,71 @@ Uses the formula described <a href="https://doku.educorvi.de/educorvi/chatbot/en
 
       
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addtranslations'>
+      addTranslations
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adds or overrides translations</p>
+
+    <div class='pre p1 fill-light mt0'>addTranslations(trans: any)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>trans</span> <code class='quiet'>(any)</code>
+	    An object containing the translations to be added in the same format as 
+<a href="defaultTranslations">defaultTranslations</a>
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
   
 
   
@@ -875,6 +958,56 @@ Uses the formula described <a href="https://doku.educorvi.de/educorvi/chatbot/en
 
       
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='index'>
+      index
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Names MUST be two-letter code, like the examples</p>
+
+    <div class='pre p1 fill-light mt0'>index</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
   
 
   
