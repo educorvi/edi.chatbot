@@ -16,15 +16,14 @@ const tolerance = 3;
  * Searchs through Array, to find the word that is closest to the word given as parameter
  * @param {string} word The Word, that was given as an Input
  * @param {string[]} goals The Words, which <code>word</code> will be compared to
+ * @param {number} maxdistance The maximal levensthein distance that the word may have. Defaults to {@link tolerance}
  * @return {{distance: number, goal: string}} Returns an Object containing the closest word and its distance. If no word is found, the method returns {@link invalid}
  */
-export function minimalDistance(word, goals) {
+export function minimalDistance(word, goals, maxdistance = tolerance) {
     if (word.length <= 0) {
         return invalid;
     }
-    let result = {
-        distance: Number.MAX_SAFE_INTEGER
-    };
+    let result = invalid;
     for (const goal of goals) {
         let d = levensthein.get(word.toLowerCase(), goal.toLowerCase());
         if (d < result.distance) {
@@ -35,7 +34,7 @@ export function minimalDistance(word, goals) {
         }
 
     }
-    if (result.distance > tolerance) {
+    if (result.distance > maxdistance) {
         return invalid;
     }
     return result;
@@ -102,45 +101,43 @@ export function splitSentence(offset, string, subSize) {
 }
 
 /**
- * helper for recursion of {@link interpretSentence}. Not for external usage
- */
-function recHelperInterpretSentence(goals, subSize, string) {
-    let results = [];
-    for (let i = 0; i < goals.length; i++) {
-        let lResults = [];
-        const goal = goals[i];
-        for (let o = 0; o < subSize; o++) {
-            let subStrings = splitSentence(o, string, subSize);
-            for (const subString of subStrings) {
-                let ld = minimalDistance(subString, goal);
-                if (ld !== invalid) {
-                    lResults.push(ld);
-                }
-            }
-        }
-        results.push(lResults);
-    }
-    if (subSize > 0) {
-        const results2 = recHelperInterpretSentence(goals, subSize - 1, string);
-        for (let i = 0; i < results2.length; i++) {
-            for (let result of results2[i]) {
-                results[i].push(result);
-            }
-        }
-    }
-    return results;
-}
-
-/**
  * Divides a Sentence in Parts, each having not more than <code>subSize</code> words, sends these to minimal distance and calculates than, which is most likely to be correct
  * Uses the formula described <a href="https://doku.educorvi.de/educorvi/chatbot/entscheidungsfindung">here</a><br>
  * <img style="max-width: 90%; width: 500px" src="https://doku.educorvi.de/educorvi/chatbot/gleichung.png">
  * @param {string} string The Sentence to be interpreted
  * @param {string[]|Array<Array<string>>} goals An Array containing the words or containing arrays with alternatives in it. One dimensional Array will automatically be put in two Dimensions
+ * @param {number} maxdistance The maximal levensthein distance that the word may have. Defaults to {@link tolerance}
  * @return {number} Returns Index of the Entry that is most likely
  */
-export function interpretSentence(string, goals) {
-    if (!goals ||goals.length < 1) {
+export function interpretSentence(string, goals, maxdistance = tolerance) {
+    function recHelperInterpretSentence(subSize) {
+        let results = [];
+        for (let i = 0; i < goals.length; i++) {
+            let lResults = [];
+            const goal = goals[i];
+            for (let o = 0; o < subSize; o++) {
+                let subStrings = splitSentence(o, string, subSize);
+                for (const subString of subStrings) {
+                    let ld = minimalDistance(subString, goal, maxdistance);
+                    if (ld !== invalid) {
+                        lResults.push(ld);
+                    }
+                }
+            }
+            results.push(lResults);
+        }
+        if (subSize > 0) {
+            const results2 = recHelperInterpretSentence(subSize - 1);
+            for (let i = 0; i < results2.length; i++) {
+                for (let result of results2[i]) {
+                    results[i].push(result);
+                }
+            }
+        }
+        return results;
+    }
+
+    if (!goals || goals.length < 1) {
         throw new IllegalArgumentError("goals must not be empty!")
     }
     for (let i = 0; i < goals.length; i++) {
@@ -156,13 +153,13 @@ export function interpretSentence(string, goals) {
             }
         }
     }
-    let results = recHelperInterpretSentence(goals, subSize, string);
+    let results = recHelperInterpretSentence(subSize);
 
     let points = [goals.length];
     for (let i = 0; i < results.length; i++) {
         points[i] = 0;
         for (let result of results[i]) {
-            points[i] += (result.goal.split(" ").length / (result.distance + (subSize-result.goal.split(" ").length)*1.2));
+            points[i] += (result.goal.split(" ").length / (result.distance + (subSize - result.goal.split(" ").length) * 1.2));
         }
     }
 
@@ -176,11 +173,11 @@ export function interpretSentence(string, goals) {
         }
     }
     for (let i = 0; i < points.length; i++) {
-        if (points[i] === points[retI] && i !==retI) {
+        if (points[i] === points[retI] && i !== retI) {
             return NaN;
         }
     }
-    if (results.length === 0 || arraySum(points)===0) {
+    if (results.length === 0 || arraySum(points) === 0) {
         return NaN;
     }
 
@@ -198,7 +195,7 @@ export function removeGarbage(string, lang) {
     string = string.toLowerCase();
     const keywords = require("./lang/translations/" + lang + ".js")["garbage"];
     const regExp = new RegExp('\\b(' + keywords.join('|') + ')\\b', 'g');
-    const fin =  (string || "").replace(regExp, '').replace(/[ ]{2,}/, ' ');
+    const fin = (string || "").replace(regExp, '').replace(/[ ]{2,}/, ' ');
     console.log(fin);
     return fin;
 }
@@ -213,7 +210,7 @@ export function yesNoMaybe(word, lang) {
     let alternatives;
     try {
         alternatives = require("./lang/translations/" + lang + ".js")["allAlternatives"];
-    }catch (e) {
+    } catch (e) {
         throw new IllegalArgumentError(`File for language "${lang}" doesn't exist`);
     }
     const keys = Object.keys(alternatives);
