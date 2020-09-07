@@ -1,5 +1,5 @@
-import de from "@/lang/translations/de";
-import en from "@/lang/translations/en";
+import de from "./translations/de";
+import en from "./translations/en";
 
 /**
  * Names MUST be two-letter code, like the examples
