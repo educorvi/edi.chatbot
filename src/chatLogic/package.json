@@ -5,9 +5,6 @@
   "dependencies": {
     "fast-levenshtein": "^2.0.6"
   },
-  "devDependencies": {
-    "eslint": "^6.7.2"
-  },
   "main": "npm-index.js",
   "bugs": {
     "url": "https://github.com/educorvi/edi.chatbot/issues"
@@ -15,19 +12,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/educorvi/edi.chatbot"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
   },
   "browserslist": [
     "> 1%",
