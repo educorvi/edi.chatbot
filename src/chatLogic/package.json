@@ -1,6 +1,6 @@
 {
   "name": "edi.chatbot",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": false,
   "dependencies": {
     "fast-levenshtein": "^2.0.6"
