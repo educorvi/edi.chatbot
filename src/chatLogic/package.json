@@ -5,7 +5,7 @@
   "dependencies": {
     "fast-levenshtein": "^2.0.6"
   },
-  "main": "npm-index.js",
+  "main": "chatLogic.js",
   "bugs": {
     "url": "https://github.com/educorvi/edi.chatbot/issues"
   },

@@ -42,7 +42,7 @@
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   },
-  "main": "src/chatLogic/npm-index.js",
+  "main": "src/chatLogic/chatLogic.js.js",
   "bugs": {
     "url": "https://github.com/educorvi/edi.chatbot/issues"
   },
