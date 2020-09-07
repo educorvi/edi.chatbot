@@ -243,3 +243,15 @@ export function yesNoMaybe(word, lang) {
     const key = keys[index];
     return {distance: NaN, goal: key};
 }
+
+
+
+
+
+
+export default {
+    yesNoMaybe,
+    minimalDistance,
+    interpretSentence,
+    addTranslations
+}
